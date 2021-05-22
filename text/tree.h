@@ -1,44 +1,21 @@
 #pragma once
 
 #include<string>
-#include<iostream>
 #include<fstream>
 #include<stdexcept>
 #include"stack.h"
-#include"JSON.h"
+#include"list.h"
 
 using namespace std;
 
-bool checkNum(string str);
-
-enum type {
-	INT, STR, BOOL
-};
-
-class IValue {
-public:
-	virtual type getType() const = 0;
-};
-
-class valString : public IValue {
-	string val;
-public:
-	valString(string _val) : val(_val) {}
-	type getType() const { return STR; }
-	void setVal(string _val) {
-		val = _val;
-	}
-	string getVal() const {
-		return val;
-	}
-};
 
 class Node {
-	IValue* val;
+	
+	
 
 public:
 	Node(string _key, string _val, Node* _next = nullptr, Node* _down = nullptr);
-
+	string val;
 	string key;
 	bool isDown;
 	Node* next;
@@ -46,7 +23,7 @@ public:
 
 	void setValue(string _val);
 
-	IValue* getValue() const;
+	string getValue() const;
 };
 
 class Text {
@@ -54,9 +31,9 @@ class Text {
 	Node* curr;
 	Stack<Node*>* path;
 
-	void printCDN(ostream& ostr, Node* root, Node* curr, int level) const;
-	void fprintCDN(ofstream& ofstr, Node* root, int level) const;
-	void freadCDN(ifstream& ifstr, Node*& root, bool isNextLvl);
+	void print(ostream& ostr, Node* root, Node* curr, int level) const;
+	void fileprint(ofstream& ofstr, Node* root, int level) const;
+	void fileread(ifstream& ifstr, Node*& root, bool isNextLvl);
 	void delBranch(Node* n);
 public:
 	Text();
@@ -68,12 +45,9 @@ public:
 	void delCurr();
 	void delDown();
 
-	void changeCurrKey(string str) const;
-	void changeCurrValue(string _val) const;
+	string getKey();
+	string getVal();
 	
-	string getCurrKey() const;
-	IValue* getCurrValue() const;
-
 	bool empty() const;
 
 	bool isNext() const;

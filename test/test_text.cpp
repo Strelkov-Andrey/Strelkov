@@ -1,54 +1,111 @@
-/*#include "polynomials.h"
-#include <gtest.h>
+#include<tree.h>
 
-TEST(test_polynomial, CAN_CREATE)
+#include<gtest.h>
+
+TEST(Text, can_create_text)
 {
-	ASSERT_NO_THROW(polinomial p);
+	ASSERT_NO_THROW(Text t);
 }
 
-TEST(test_polynomial, CAN_ADD)
+TEST(Text, can_add_new_string_to_the_current_level)
 {
-	polinomial p;
-	monomial m(3, 1, 2, 3);
-	ASSERT_NO_THROW(p.addmonom(m));
+	Text t;
+	t.addNext("key", "Next");
+	string key =t.getKey();
+	string val = t.getVal();
+	EXPECT_EQ("Next", val);
+	EXPECT_EQ("key", key);
 }
 
-TEST(test_polynomial, ADD_MONOMIAL)
+TEST(Text, can_add_new_string_to_the_sublevel)
 {
-	polinomial p,p1;
-	monomial m(3, 1, 2, 3);
-	p.addmonom(m);
-	p1 = p;
-	EXPECT_EQ(p,p1);
+	Text t;
+	t.addNext("key", "Next");
+	t.addDown("key1", "Down");
+	t.down();
+	string key = t.getKey();
+	string val = t.getVal();
+	EXPECT_EQ("Down", val);
+	EXPECT_EQ("key1", key);
 }
 
-TEST(test_polynomial, CAN_ADD_POLYNOMIALS)
+TEST(Text, cant_get_current_key_if_text_is_empty)
 {
-	polinomial p, p1, p3;
-	monomial m1(10, 2, 1, 1);
-	monomial m2(10, 3, 1, 1);
-	monomial m3(10, 1, 1, 5);
-	monomial m4(6, 2, 1, 1);
-	p.addmonom(m1);
-	p.addmonom(m2);
-	p1.addmonom(m3);
-	p1.addmonom(m4);
-	p3 = p3 + m1 + m2 + m3 + m4;
-	EXPECT_EQ(p3, p + p1);
+	Text t;
+	ASSERT_ANY_THROW(t.getKey());
 }
 
-TEST(test_polynomial, CAN_SUB_POLYNOMIAL)
+TEST(Text, can_delete_current_value)
 {
-	polinomial p, p1, p3;
-	monomial m1(10, 2, 1, 1);
-	monomial m2(10, 3, 1, 1);
-	monomial m3(10, 1, 1, 5);
-	monomial m4(6, 2, 1, 1);
-	p.addmonom(m1);
-	p.addmonom(m2);
-	p1.addmonom(m3);
-	p1.addmonom(m4);
-	p3 = p3 + m1 + m2 - m3 - m4;
-	EXPECT_EQ(p3, p - p1);
+	Text t;
+	t.addNext("key", "Next");
+	t.addNext("key1", "This");
+	ASSERT_NO_THROW(t.delCurr());
+	
 }
-*/
+
+TEST(Text, can_delete_sublevel_from_current_string)
+{
+	Text t;
+	t.addNext("key", "Next");
+	t.addDown("key1", "Down");
+	t.delDown();
+	ASSERT_ANY_THROW(t.down());
+}
+
+TEST(Text, text_is_empty)
+{
+	Text t;
+	EXPECT_EQ(true, t.empty());
+}
+
+TEST(Text, text_is_not_empty)
+{
+	Text t;
+	EXPECT_EQ(true, t.empty());
+}
+
+TEST(Text, can_go_to_next)
+{
+	Text t;
+	t.addNext("key", "Next");
+	t.addNext("key1", "This");
+	t.next();
+	EXPECT_EQ("This", t.getVal());
+}
+
+TEST(Text, can_go_back)
+{
+	Text t;
+	t.addNext("key", "Next");
+	t.addNext("key1", "This");
+	t.next();
+	t.top();
+	EXPECT_EQ("Next", t.getVal());
+}
+
+TEST(Text, can_go_down)
+{
+	Text t;
+	t.addNext("key", "Next");
+	t.addDown("key1", "This");
+	t.down();
+	EXPECT_EQ("This",t.getVal());
+}
+
+TEST(Text, can_check_isDown)
+{
+	Text t;
+	t.addNext("key", "Next");
+	t.addDown("key1", "Down");
+	EXPECT_EQ(true, t.isDown());
+}
+
+TEST(Text, can_check_isTop_true)
+{
+	Text t;
+	t.addNext("key", "Next");
+	t.addDown("key1", "Down");
+	t.down();
+	EXPECT_EQ(true, t.isTop());
+}

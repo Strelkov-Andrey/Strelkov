@@ -2,52 +2,37 @@
 
 enum State { q0, q1, q2, q3, q4 };
 
-bool checkNum(string str) {
-	for (int i = 0; i < str.length(); i++) {
-		if (str[i] < '0' || str[i] > '9') return false;
-	}
-	return true;
-}
-
 Node::Node(string _key, string _val, Node* _next, Node* _down)
-	: key(_key), val(new valString(_val)), next(_next), down(_down), isDown(false) {}
+	: key(_key), val(_val), next(_next), down(_down), isDown(false) {}
 
-void Node::setValue(string _val) {
-	if (val->getType() == STR) {
-		(dynamic_cast<valString*>(val))->setVal(_val);
-	}
-	else {
-		delete val;
-		val = new valString(_val);
-	}
+void Node::setValue(string _val)
+{
+		val = _val;
 }
 
-IValue* Node::getValue() const {
+string Node::getValue() const {
 	return val;
 }
 
-void Text::printCDN(ostream& ostr, Node* root, Node* curr, int level) const {
+void Text::print(ostream& ostr, Node* root, Node* curr, int level) const {
 	if (root == nullptr) return;
 	for (int i = 0; i < level; i++) {
 		ostr << "   ";
 	}
-	if (root == curr) ostr << ">";
+	if (root == curr) ostr << "*";
 	ostr << root->key << " : ";
 	if (!root->isDown)
 	{
-		if (root->getValue()->getType() == STR) 
-		{
-			ostr << "\"" << dynamic_cast<valString*>(root->getValue())->getVal() << "\"" << endl;
-		}
+		ostr << "\"" << root->getValue() << "\"" << endl;
 	}
 	else {
 		ostr << endl;
-		printCDN(ostr, root->down, curr, level + 1);
+		print(ostr, root->down, curr, level + 1);
 	}
-	printCDN(ostr, root->next, curr, level);
+	print(ostr, root->next, curr, level);
 }
 
-void Text::fprintCDN(ofstream& ofstr, Node* root, int level) const {
+void Text::fileprint(ofstream& ofstr, Node* root, int level) const {
 	if (root == nullptr) return;
 	for (int i = 0; i < level; i++) {
 		ofstr << '\t';
@@ -55,7 +40,7 @@ void Text::fprintCDN(ofstream& ofstr, Node* root, int level) const {
 	ofstr << "\"" << root->key << "\" : ";
 	if (root->isDown) {
 		ofstr << "{" << endl;
-		fprintCDN(ofstr, root->down, level + 1);
+		fileprint(ofstr, root->down, level + 1);
 		for (int i = 0; i < level; i++) {
 			ofstr << '\t';
 		}
@@ -63,10 +48,7 @@ void Text::fprintCDN(ofstream& ofstr, Node* root, int level) const {
 	}
 	else 
 	{
-		if (root->getValue()->getType() == STR)
-		{
-			ofstr << "\"" << dynamic_cast<valString*>(root->getValue())->getVal() << "\"";
-		}
+			ofstr << "\"" << root->getValue() << "\"";
 	}
 	if (root->next != nullptr) {
 		ofstr << " ," << endl;
@@ -74,10 +56,10 @@ void Text::fprintCDN(ofstream& ofstr, Node* root, int level) const {
 	else {
 		ofstr << endl;
 	}
-	fprintCDN(ofstr, root->next, level);
+	fileprint(ofstr, root->next, level);
 }
 
-void Text::freadCDN(ifstream& ifstr, Node*& root, bool isNextLvl) {
+void Text::fileread(ifstream& ifstr, Node*& root, bool isNextLvl) {
 	if (ifstr.eof()) return;
 	string str;
 	State state;
@@ -121,8 +103,22 @@ void Text::freadCDN(ifstream& ifstr, Node*& root, bool isNextLvl) {
 			}
 			else if (str == "{") {
 				root->isDown = true;
-				freadCDN(ifstr, root->down, true);
+				fileread(ifstr, root->down, true);
 				state = q4;
+			}
+			else if (str[str.length() - 1] != '\"')
+			{
+				string tmp;
+				getline(ifstr, tmp);
+				str += tmp;
+				root->setValue(str.substr(1, str.length() - 2));
+				if (str[str.size() - 1] == ',')
+				{
+					fileread(ifstr, root->next, false);
+					return;
+				}
+				else
+					state = q4;
 			}
 			else {
 				throw logic_error("Invalid file format");
@@ -130,7 +126,7 @@ void Text::freadCDN(ifstream& ifstr, Node*& root, bool isNextLvl) {
 		}
 		else if (state == q4) {
 			if (str == ",") {
-				freadCDN(ifstr, root->next, false);
+				fileread(ifstr, root->next, false);
 				return;
 			}
 			else if (str == "}") {
@@ -200,93 +196,96 @@ void Text::delCurr() {
 	delete tmp;
 }
 
-void Text::delDown() {
+void Text::delDown()
+{
 	curr->isDown = false;
 	if (curr == nullptr || curr->down == nullptr) return;
 	delBranch(curr->down);
 	curr->down = nullptr;
 }
 
-void Text::changeCurrKey(string str) const {
-	if (curr == nullptr) throw logic_error("curr == nullptr");
-	curr->key = str;
-}
-
-void Text::changeCurrValue(string _val) const {
-	if (curr == nullptr) throw logic_error("curr == nullptr");
-	curr->setValue(_val);
-}
-
-string Text::getCurrKey() const {
-	if (curr == nullptr) throw logic_error("curr == nullptr");
+string Text::getKey()
+{
+	if (curr == nullptr) throw logic_error("Curr is null");
 	return curr->key;
 }
 
-IValue* Text::getCurrValue() const {
-	if (curr == nullptr) throw logic_error("curr == nullptr");
-	return curr->getValue();
+string Text::getVal()
+{
+	if (curr == nullptr) throw logic_error("Curr is null");
+	return curr->val;
 }
 
-bool Text::empty() const {
+bool Text::empty() const
+{
 	return !root;
 }
 
-bool Text::isNext() const {
-	if (curr == nullptr) return false;
+bool Text::isNext() const
+{
 	if (curr->next != nullptr) return true;
 	return false;
 }
 
-bool Text::isDown() const {
-	if (curr == nullptr) return false;
+bool Text::isDown() const
+{
 	if (curr->down != nullptr) return true;
 	return false;
 }
 
-bool Text::isTop() const {
+bool Text::isTop() const 
+{
 	if (curr == nullptr) return false;
 	if (!path->empty()) return true;
 	return false;
 }
 
-void Text::next() {
+void Text::next() 
+{
 	if (!isNext()) throw logic_error("isNext == false");
 	path->push(curr);
 	curr = curr->next;
 }
 
-void Text::down() {
+void Text::down() 
+{
 	if (!isDown()) throw logic_error("isDown == false");
 	path->push(curr);
 	curr = curr->down;
 }
 
-void Text::top() {
+void Text::top()
+{
 	if (!isTop()) throw logic_error("isTop == false");
 	curr = path->top();
 	path->pop();
 }
 
-ostream& operator<<(ostream& ostr, const Text& text) {
-	text.printCDN(ostr, text.root, text.curr, 0);
+ostream& operator<<(ostream& ostr, const Text& text) 
+{
+	text.print(ostr, text.root, text.curr, 0);
 	return ostr;
 }
 
-ofstream& operator<<(ofstream& ofstr, const Text& text) {
+ofstream& operator<<(ofstream& ofstr, const Text& text)
+{
 	ofstr << "{" << endl;
-	text.fprintCDN(ofstr, text.root, 1);
+	text.fileprint(ofstr, text.root, 1);
 	ofstr << "}" << endl;
 	return ofstr;
 }
 
-ifstream& operator>>(ifstream& ifstr, Text& text) {
-	if (!ifstr.eof()) {
-		while (text.root != nullptr) {
+ifstream& operator>>(ifstream& ifstr, Text& text)
+{
+	if (!ifstr.eof())
+	{
+		while (text.root != nullptr)
+		{
 			text.delCurr();
 		}
 		string str;
 		ifstr >> str;
-		text.freadCDN(ifstr, text.root, true);
+		text.fileread(ifstr, text.root, true);
 		text.curr = text.root;
 	}
 	return ifstr;
