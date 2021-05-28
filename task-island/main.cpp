@@ -2,6 +2,7 @@
 
 using namespace std;
 
+<<<<<<< HEAD
 const int n = 10;
 int arr[n][n];
 
@@ -45,42 +46,84 @@ void del_island(int a1, int a2)
 		del_island(a1 - 1, a2);
 	if (checkright(a1, a2))
 		del_island(a1 + 1, a2);
+=======
+const int m = 3, n = 3;
+
+bool checknext(int* a, int k)
+{
+	bool b;
+	if ((a[k] == 1) || ((k % n) == 4))
+		return false;
+	if (k != m * n - 1)
+	{
+		b = (a[k + 1] == 0);
+		a[k] = k;
+		a[k + 1] = k;
+		return b;
+	}
+	else
+		return false;
+}
+bool checkdown(int* a, int k)
+{
+	bool b;
+	if ((a[k] == 1) || (k != m * (n - 1)))
+		return false;
+	else
+	{
+		b = (a[k + n] == 0);
+		a[k] = k;
+		a[k + n] = k;
+		return b;
+	}
+>>>>>>> 43064e76ff2e8987afe6cbd6461c884e09900e32
 }
 
 int main()
 {
+<<<<<<< HEAD
 	
 	int a[n][n];
 	for (int i = 0; i < n; i++)
+=======
+	int arr[m][n];
+	
+	const int t = m * n;
+	int a[t];
+	int k = 0;
+	for (int i = 0; i < m; i++)
+>>>>>>> 43064e76ff2e8987afe6cbd6461c884e09900e32
 	{
 		for (int j = 0; j < n; j++)
 		{
 			arr[i][j] = rand() % 2;
+<<<<<<< HEAD
 			a[i][j] = arr[i][j];
+=======
+			a[k + j] = arr[i][j];
+>>>>>>> 43064e76ff2e8987afe6cbd6461c884e09900e32
 		}
+		k += n;
 	}
 	int count = 0;
+<<<<<<< HEAD
 	/*int tmp;
+=======
+>>>>>>> 43064e76ff2e8987afe6cbd6461c884e09900e32
 	int i = 0;
-	while (i < 20)
+	while (i < m*n)
 	{
-		while (a[i] != 0)
-			i++;
-	
-		if (check(a, i))
+		while (a[i] != 1)
 		{
-			while (a[i] == 0)
-			{
+			if (checknext(a, i) || checkdown(a, i))
 				i++;
-				if ((i % 5) != 4)
-					break;
+			else
+			{
+				count++;
+				break;
 			}
 		}
-		else
-		{
-			if (a[i + 5] != 0)
-				count++;
-		}
+<<<<<<< HEAD
 	count++;
 	}*/
 	for (int i = 0; i < n; i++)
@@ -95,6 +138,13 @@ int main()
 		}
 	}
 	for (int i = 0; i < n; i++)
+=======
+	
+		i++;
+	}
+	
+	for (int i = 0; i < m; i++)
+>>>>>>> 43064e76ff2e8987afe6cbd6461c884e09900e32
 	{
 		for (int j = 0; j < n; j++)
 		{
@@ -102,6 +152,7 @@ int main()
 		}
 		cout << endl;
 	}
+	
 	cout << count;
 	return 0;
 }
