@@ -2,25 +2,65 @@
 
 using namespace std;
 
-bool check(int* a, int k)
+const int n = 10;
+int arr[n][n];
+
+bool checkleft(int a1, int a2)
 {
-	return (a[k + 1] == 0) || (a[k + 5] == 0);
+	if (a1 <= 0)
+		return false;
+	return(arr[a1 - 1][a2] == 1);
+}
+
+bool checkright(int a1, int a2)
+{
+	if (a1 >= 4)
+		return false;
+	return(arr[a1 + 1][a2] == 1);
+}
+
+bool checkdown(int a1, int a2)
+{
+	if (a2 >= 4)
+		return false;
+	return(arr[a1][a2 + 1] == 1);
+}
+
+bool checkup(int a1, int a2)
+{
+	if (a2 <= 0)
+		return false;
+	return(arr[a1][a2 - 1] == 1);
+}
+
+void del_island(int a1, int a2)
+{
+	arr[a1][a2] = 0;
+	
+	if (checkdown(a1, a2))
+		del_island(a1, a2 + 1);
+	if (checkup(a1, a2))
+		del_island(a1, a2 - 1);
+	if (checkleft(a1, a2))
+		del_island(a1 - 1, a2);
+	if (checkright(a1, a2))
+		del_island(a1 + 1, a2);
 }
 
 int main()
 {
-	int arr[5][5];
-	int a[25];
-	for (int i = 0; i < 5; i++)
+	
+	int a[n][n];
+	for (int i = 0; i < n; i++)
 	{
-		for (int j = 0; j < 5; j++)
+		for (int j = 0; j < n; j++)
 		{
 			arr[i][j] = rand() % 2;
-			a[i + j] = arr[i][j];
+			a[i][j] = arr[i][j];
 		}
 	}
 	int count = 0;
-	int tmp;
+	/*int tmp;
 	int i = 0;
 	while (i < 20)
 	{
@@ -42,12 +82,23 @@ int main()
 				count++;
 		}
 	count++;
-	}
-	for (int i = 0; i < 5; i++)
+	}*/
+	for (int i = 0; i < n; i++)
 	{
-		for (int j = 0; j < 5; j++)
+		for (int j = 0; j < n; j++)
 		{
-			cout << arr[i][j];
+			if (arr[i][j] == 1)
+			{
+				del_island(i, j);
+				count++;
+			}
+		}
+	}
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			cout << a[i][j];
 		}
 		cout << endl;
 	}
