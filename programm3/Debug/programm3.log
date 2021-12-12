@@ -1,0 +1,20 @@
+﻿  MyForm.cpp
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(45,20): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(47,47): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(49,31): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(51,43): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(52,19): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(53,42): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(54,46): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(55,31): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(57,47): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(59,20): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(61,31): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(63,42): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(64,46): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(65,43): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(66,19): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\RK3.cpp(67,31): warning C4244:  =: преобразование "double" в "float", возможна потеря данных
+C:\Users\Andrew\source\repos\programm3\programm3\MyForm.cpp(6,32): warning C4829:  Возможно, неправильные параметры функции main. Рекомендуемый вариант - "int main(Platform::Array<Platform::String^>^ argv)"
+  MyForm.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
+  programm3.vcxproj -> C:\Users\Andrew\source\repos\programm3\Debug\programm3.exe
