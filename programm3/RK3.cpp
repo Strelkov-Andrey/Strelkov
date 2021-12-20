@@ -29,6 +29,12 @@ inline void true_solution(double t, double* u1, double* u2)
 	*u2 = 10 * exp(-0.01 * t) + 3 * exp(-1000 * t);
 }
 
+inline double sep(double x)
+{
+	return (-11111*x/(17*sqrt(427178)+11))+10;
+}
+
+
 inline void gauss(double h, double v1, double v2, double* k1, double* k2, double* m1, double* m2)
 {
 

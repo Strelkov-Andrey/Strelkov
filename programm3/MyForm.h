@@ -66,10 +66,11 @@ namespace programm3 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea2 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^ legend2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^ legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Series^ series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			System::Windows::Forms::DataVisualization::Charting::Series^ series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^ series4 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
@@ -92,7 +93,7 @@ namespace programm3 {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(759, 518);
+			this->button1->Location = System::Drawing::Point(1002, 605);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(96, 34);
 			this->button1->TabIndex = 1;
@@ -107,7 +108,7 @@ namespace programm3 {
 			this->tabControl1->Location = System::Drawing::Point(3, 8);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(852, 504);
+			this->tabControl1->Size = System::Drawing::Size(1095, 591);
 			this->tabControl1->TabIndex = 2;
 			// 
 			// tabPage1
@@ -116,38 +117,45 @@ namespace programm3 {
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(844, 478);
+			this->tabPage1->Size = System::Drawing::Size(1087, 565);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"График";
 			this->tabPage1->UseVisualStyleBackColor = true;
 			// 
 			// chart1
 			// 
-			chartArea2->AxisX->IsMarginVisible = false;
-			chartArea2->AxisX->IsMarksNextToAxis = false;
-			chartArea2->AxisY->IsMarginVisible = false;
-			chartArea2->AxisY->IsStartedFromZero = false;
-			chartArea2->Name = L"ChartArea1";
-			this->chart1->ChartAreas->Add(chartArea2);
-			legend2->Name = L"Legend1";
-			this->chart1->Legends->Add(legend2);
+			chartArea1->AxisX->IsMarginVisible = false;
+			chartArea1->AxisX->IsMarksNextToAxis = false;
+			chartArea1->AxisY->IsMarginVisible = false;
+			chartArea1->AxisY->IsStartedFromZero = false;
+			chartArea1->Name = L"ChartArea1";
+			this->chart1->ChartAreas->Add(chartArea1);
+			legend1->Name = L"Legend1";
+			this->chart1->Legends->Add(legend1);
 			this->chart1->Location = System::Drawing::Point(-4, 0);
 			this->chart1->Name = L"chart1";
+			series1->ChartArea = L"ChartArea1";
+			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series1->Legend = L"Legend1";
+			series1->MarkerSize = 20;
+			series1->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
+			series1->Name = L"Series1";
+			series2->ChartArea = L"ChartArea1";
+			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series2->Legend = L"Legend1";
+			series2->MarkerSize = 15;
+			series2->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
+			series2->Name = L"Series2";
 			series3->ChartArea = L"ChartArea1";
 			series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
 			series3->Legend = L"Legend1";
-			series3->MarkerSize = 15;
+			series3->MarkerSize = 10;
 			series3->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
-			series3->Name = L"Series1";
-			series4->ChartArea = L"ChartArea1";
-			series4->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-			series4->Legend = L"Legend1";
-			series4->MarkerSize = 15;
-			series4->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
-			series4->Name = L"Series2";
+			series3->Name = L"Series3";
+			this->chart1->Series->Add(series1);
+			this->chart1->Series->Add(series2);
 			this->chart1->Series->Add(series3);
-			this->chart1->Series->Add(series4);
-			this->chart1->Size = System::Drawing::Size(842, 472);
+			this->chart1->Size = System::Drawing::Size(1085, 562);
 			this->chart1->TabIndex = 1;
 			this->chart1->Text = L"chart1";
 			this->chart1->Click += gcnew System::EventHandler(this, &MyForm::Chart1_Click);
@@ -158,7 +166,7 @@ namespace programm3 {
 			this->tabPage2->Location = System::Drawing::Point(4, 22);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(844, 478);
+			this->tabPage2->Size = System::Drawing::Size(1087, 565);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"Таблица";
 			this->tabPage2->UseVisualStyleBackColor = true;
@@ -172,7 +180,7 @@ namespace programm3 {
 			this->listView1->HideSelection = false;
 			this->listView1->Location = System::Drawing::Point(-4, 2);
 			this->listView1->Name = L"listView1";
-			this->listView1->Size = System::Drawing::Size(841, 473);
+			this->listView1->Size = System::Drawing::Size(1088, 560);
 			this->listView1->TabIndex = 0;
 			this->listView1->UseCompatibleStateImageBehavior = false;
 			this->listView1->View = System::Windows::Forms::View::Details;
@@ -220,7 +228,7 @@ namespace programm3 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(896, 560);
+			this->ClientSize = System::Drawing::Size(1110, 651);
 			this->Controls->Add(this->tabControl1);
 			this->Controls->Add(this->button1);
 			this->Name = L"MyForm";
@@ -242,13 +250,15 @@ namespace programm3 {
 		chart1->Series["Series2"]->Points->Clear();
 		double E1, E2;
 		double k1, k2, m1, m2;
-		double h = 0.005;
+		double h = 0.0001;
 		double t = 0;
 		double v1 = 7;
 		double v2 = 13;
 		int step = 0;
 		double u1 = 7;
 		double u2 = 13;
+		double sepx=0;
+		double sepy=0;
 		ms[0] = t.ToString();
 		ms[1] = h.ToString();
 		ms[2] = v1.ToString();
@@ -261,7 +271,7 @@ namespace programm3 {
 		chart1->Series["Series2"]->Points->AddXY(t, v1);
 		//cout << setw(10) << "t" << setw(12) << "h" << setw(12) << "v1" << setw(12) << "v2" << setw(12) << "u1" << setw(12) << "u2" << setw(15) << "E1" << setw(15) << "E2" << endl;
 		//cout << setw(10) << t << setw(12) << h << setw(12) << v1 << setw(12) << v2 << setw(12) << u1 << setw(12) << u2 << endl;
-		while (step < 100)
+		while (abs(v1-v2)> 0.000000001)
 		{
 			
 			
@@ -270,8 +280,11 @@ namespace programm3 {
 			true_solution(t, &u1, &u2);
 			E1 = u1 - v1;
 			E2 = u2 - v2;
+			//sepy = sep(sepx);
+			//sepx += h;
 			chart1->Series["Series1"]->Points->AddXY(t, v2);
 			chart1->Series["Series2"]->Points->AddXY(t, v1);
+			//chart1->Series["Series3"]->Points->AddXY(sepx,sepy);
 			ms[0] = t.ToString();
 			ms[1] = h.ToString();
 			ms[2] = v1.ToString();
